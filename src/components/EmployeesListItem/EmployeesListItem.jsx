@@ -11,7 +11,7 @@ import {
   ButtonStar,
 } from './EmploeesListItem.styled';
 
-const EmployeesListItem = ({ name, salary, increase }) => {
+const EmployeesListItem = ({ name, salary, increase, rise, onDeleteEmployee }) => {
   return (
     <Employee increase={increase}>
       <p>{name}</p>
@@ -20,12 +20,10 @@ const EmployeesListItem = ({ name, salary, increase }) => {
         <ButtonMoney aria-label='money'>
           <GrMoney />
         </ButtonMoney>
-
-        <ButtonDelete aria-label='delete'>
+        <ButtonDelete aria-label='delete' onClick={onDeleteEmployee}>
           <MdDelete />
         </ButtonDelete>
-
-        <ButtonStar aria-label='star'>
+        <ButtonStar aria-label='star' rise={rise}>
           <AiFillStar />
         </ButtonStar>
       </Buttons>

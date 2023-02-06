@@ -29,7 +29,7 @@ export const Salary = styled.input`
 `;
 
 export const ButtonStar = styled(IconButton)`
-  color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme, rise }) => (rise ? theme.colors.gold : theme.colors.background)};
 `;
 
 export const ButtonMoney = styled(IconButton)`
