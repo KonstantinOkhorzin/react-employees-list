@@ -10,11 +10,11 @@ const StyledMain = styled.main`
   gap: ${({ theme }) => theme.space[4]}px;
 `;
 
-const Main = () => {
+const Main = ({employees}) => {
   return (
     <StyledMain>
       <SearchPanel />
-      <EmployeesList />
+      <EmployeesList employees={employees} />
     </StyledMain>
   );
 };

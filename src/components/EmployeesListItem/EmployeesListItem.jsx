@@ -11,11 +11,11 @@ import {
   ButtonStar,
 } from './EmploeesListItem.styled';
 
-const EmployeesListItem = () => {
+const EmployeesListItem = ({ name, salary, increase }) => {
   return (
-    <Employee>
-      <p>John Smith</p>
-      <Salary defaultValue='1000$' />
+    <Employee increase={increase}>
+      <p>{name}</p>
+      <Salary defaultValue={salary + '$'} />
       <Buttons>
         <ButtonMoney aria-label='money'>
           <GrMoney />

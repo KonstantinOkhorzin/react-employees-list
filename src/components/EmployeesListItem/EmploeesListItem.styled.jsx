@@ -10,6 +10,7 @@ export const Employee = styled.li`
   padding: ${({ theme }) => theme.space[4]}px;
   font-size: ${({ theme }) => theme.fontSizes.s}px;
   box-shadow: ${({ theme }) => theme.shadows.small};
+  color: ${({ theme, increase }) => (increase ? theme.colors.yellow : theme.colors.text)};
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
     font-size: ${({ theme }) => theme.fontSizes.m}px;
