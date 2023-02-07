@@ -8,12 +8,23 @@ import Container from './UI/Container';
 
 class App extends Component {
   state = {
-    data: [
-      { name: 'John C.', salary: 800, increase: false, rise: false, id: 1 },
-      { name: 'Alex M.', salary: 3000, increase: true, rise: false, id: 2 },
-      { name: 'Carl W.', salary: 5000, increase: false, rise: true, id: 3 },
-    ],
+    data: [],
   };
+
+  componentDidMount() {
+    const employees = localStorage.getItem('employees');
+    const parsedEmployees = JSON.parse(employees);
+
+    if (parsedEmployees) {
+      this.setState({ data: parsedEmployees });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.data !== prevState.data) {
+      localStorage.setItem('employees', JSON.stringify(this.state.data));
+    }
+  }
 
   createEmployee = userData => {
     const newEmployee = {
@@ -25,7 +36,7 @@ class App extends Component {
     this.setState(({ data }) => ({
       data: [...data, newEmployee],
     }));
-  }
+  };
 
   deleteEmployee = id => {
     this.setState(({ data }) => ({ data: data.filter(item => item.id !== id) }));
