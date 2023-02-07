@@ -6,7 +6,7 @@ export const GlobalStyleComponent = createGlobalStyle`
   *,*:before,*:after{box-sizing:inherit;}
   input,button,textarea,select{font:inherit;line-height: inherit;}
   input::-ms-clear{display: none;}
-  input,textarea,button,select{background-color: inherit;}
+  input,textarea,button,select{background-color:inherit;color:inherit;}
   button::-moz-focus-inner {padding:0;border:0;}
   a,a:visited{text-decoration: none;}
   a:hover{text-decoration: none;}

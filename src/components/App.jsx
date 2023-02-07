@@ -18,13 +18,30 @@ class App extends Component {
     this.setState(({ data }) => ({ data: data.filter(item => item.id !== id) }));
   };
 
+  toggleIncrease = id => {
+    this.setState(({ data }) => ({
+      data: data.map(item => (item.id === id ? { ...item, increase: !item.increase } : item)),
+    }));
+  };
+
+  toggleRise = id => {
+    this.setState(({ data }) => ({
+      data: data.map(item => (item.id === id ? { ...item, rise: !item.rise } : item)),
+    }));
+  };
+
   render() {
     const { data } = this.state;
 
     return (
       <Container>
         <AppInfo />
-        <Main employees={data} onDeleteEmployee={this.deleteEmployee} />
+        <Main
+          employees={data}
+          onDeleteEmployee={this.deleteEmployee}
+          onToggleIncrease={this.toggleIncrease}
+          onToggleRise={this.toggleRise}
+        />
         <EmployeesAddForm />
       </Container>
     );

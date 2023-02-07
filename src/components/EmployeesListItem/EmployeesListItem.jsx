@@ -11,19 +11,27 @@ import {
   ButtonStar,
 } from './EmploeesListItem.styled';
 
-const EmployeesListItem = ({ name, salary, increase, rise, onDeleteEmployee }) => {
+const EmployeesListItem = ({
+  name,
+  salary,
+  increase,
+  rise,
+  onDeleteEmployee,
+  onToggleIncrease,
+  onToggleRise,
+}) => {
   return (
     <Employee increase={increase}>
-      <p>{name}</p>
+      <h3>{name}</h3>
       <Salary defaultValue={salary + '$'} />
       <Buttons>
-        <ButtonMoney aria-label='money'>
+        <ButtonMoney aria-label='money' onClick={onToggleIncrease}>
           <GrMoney />
         </ButtonMoney>
         <ButtonDelete aria-label='delete' onClick={onDeleteEmployee}>
           <MdDelete />
         </ButtonDelete>
-        <ButtonStar aria-label='star' rise={rise}>
+        <ButtonStar aria-label='star' rise={rise} onClick={onToggleRise}>
           <AiFillStar />
         </ButtonStar>
       </Buttons>
