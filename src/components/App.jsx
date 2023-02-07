@@ -35,7 +35,7 @@ class App extends Component {
 
     return (
       <Container>
-        <AppInfo />
+        <AppInfo employees={data} />
         <Main
           employees={data}
           onDeleteEmployee={this.deleteEmployee}
