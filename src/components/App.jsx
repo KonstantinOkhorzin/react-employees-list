@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { nanoid } from 'nanoid';
 
 import AppInfo from './AppInfo/AppInfo';
 import Main from './Main/Main';
@@ -13,6 +14,18 @@ class App extends Component {
       { name: 'Carl W.', salary: 5000, increase: false, rise: true, id: 3 },
     ],
   };
+
+  createEmployee = userData => {
+    const newEmployee = {
+      ...userData,
+      increase: false,
+      rise: false,
+      id: nanoid(),
+    };
+    this.setState(({ data }) => ({
+      data: [...data, newEmployee],
+    }));
+  }
 
   deleteEmployee = id => {
     this.setState(({ data }) => ({ data: data.filter(item => item.id !== id) }));
@@ -42,7 +55,7 @@ class App extends Component {
           onToggleIncrease={this.toggleIncrease}
           onToggleRise={this.toggleRise}
         />
-        <EmployeesAddForm />
+        <EmployeesAddForm onCreateEmployee={this.createEmployee} />
       </Container>
     );
   }
