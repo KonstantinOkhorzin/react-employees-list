@@ -1,40 +1,26 @@
 import { Buttons, Button, Input } from './AppFilter.styled';
 
 const AppFilter = ({ filter, onInputChange }) => {
+  const filterData = [
+    { name: 'all', label: 'All employees' },
+    { name: 'rise', label: 'Get promoted' },
+    { name: 'moreThen1000', label: 'Salary more than 1000$' },
+  ];
+
   return (
     <Buttons>
-      <label>
-        <Input
-          type='radio'
-          name='filter'
-          value='all'
-          checked={filter === 'all'}
-          onChange={onInputChange}
-        />
-        <Button>All employees</Button>
-      </label>
-
-      <label>
-        <Input
-          type='radio'
-          name='filter'
-          value='rise'
-          checked={filter === 'rise'}
-          onChange={onInputChange}
-        />
-        <Button>Get promoted</Button>
-      </label>
-
-      <label>
-        <Input
-          type='radio'
-          name='filter'
-          value='moreThen1000'
-          checked={filter === 'moreThen1000'}
-          onChange={onInputChange}
-        />
-        <Button>Salary more than 1000$</Button>
-      </label>
+      {filterData.map(({ name, label }) => (
+        <label key={name}>
+          <Input
+            type='radio'
+            name='filter'
+            value={name}
+            checked={filter === name}
+            onChange={onInputChange}
+          />
+          <Button>{label}</Button>
+        </label>
+      ))}
     </Buttons>
   );
 };
