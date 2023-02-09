@@ -46,5 +46,7 @@ export const Input = styled.input`
   }
   :focus + ${Button} {
     box-shadow: ${({ theme }) => theme.shadows.outline};
+    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.text};
   }
 `;

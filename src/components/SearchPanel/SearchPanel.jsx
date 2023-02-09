@@ -17,11 +17,11 @@ const StyledSearchPanel = styled.div`
   }
 `;
 
-const SearchPanel = () => {
+const SearchPanel = ({ filter, search, onInputChange }) => {
   return (
     <StyledSearchPanel>
-      <Input placeholder={'Find employee'} />
-     <AppFilter/>
+      <Input placeholder={'Find employee'} name='search' value={search}  onChange={onInputChange} />
+      <AppFilter filter={filter} onInputChange={onInputChange} />
     </StyledSearchPanel>
   );
 };

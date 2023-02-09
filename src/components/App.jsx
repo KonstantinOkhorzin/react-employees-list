@@ -9,6 +9,8 @@ import Container from './UI/Container';
 class App extends Component {
   state = {
     data: [],
+    filter: 'all',
+    search: '',
   };
 
   componentDidMount() {
@@ -54,17 +56,44 @@ class App extends Component {
     }));
   };
 
+  inputChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  searchEmployees = (data, search) => {
+    const normalizedSearch = search.toLowerCase();
+    return data.filter(employee => employee.name.toLowerCase().includes(normalizedSearch));
+  };
+
+  getFilteredEmployees = (data, filter) => {
+    switch (filter) {
+      case 'all':
+        return data;
+      case 'rise':
+        return data.filter(item => item.rise);
+      case 'moreThen1000':
+        return data.filter(item => item.salary > 1000);
+      default:
+        return data;
+    }
+  };
+
   render() {
-    const { data } = this.state;
+    const { data, filter, search } = this.state;
+    const visibleEmployees = this.getFilteredEmployees(this.searchEmployees(data, search), filter);
 
     return (
       <Container>
         <AppInfo employees={data} />
         <Main
-          employees={data}
+          employees={visibleEmployees}
           onDeleteEmployee={this.deleteEmployee}
           onToggleIncrease={this.toggleIncrease}
           onToggleRise={this.toggleRise}
+          onInputChange={this.inputChange}
+          filter={filter}
+          search={search}
         />
         <EmployeesAddForm onCreateEmployee={this.createEmployee} />
       </Container>
