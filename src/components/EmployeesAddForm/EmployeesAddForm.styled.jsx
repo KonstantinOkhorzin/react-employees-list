@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Field, Form } from 'formik';
 
 export const Footer = styled.footer`
   padding: ${({ theme }) => theme.space[4]}px;
@@ -22,7 +23,7 @@ export const Title = styled.h2`
   }
 `;
 
-export const Form = styled.form`
+export const StyledForm = styled(Form)`
   display: grid;
   gap: ${({ theme }) => theme.space[4]}px;
   grid-template-columns: 1fr;
@@ -36,4 +37,39 @@ export const Form = styled.form`
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.tablet}px) {
     gap: ${({ theme }) => theme.space[4]}px;
   }
+`;
+
+export const Input = styled(Field)`
+  width: 100%;
+  padding-top: ${({ theme }) => theme.space[3]}px;
+  padding-bottom: ${({ theme }) => theme.space[3]}px;
+  padding-left: ${({ theme }) => theme.space[4]}px;
+  padding-right: ${({ theme }) => theme.space[4]}px;
+  border-radius: ${({ theme }) => theme.radii.normal};
+  box-shadow: ${({ theme }) => theme.shadows.small};
+  background-color: ${({ theme }) => theme.colors.background};
+  transition: ${({ theme }) => theme.animation.cubicBezier};
+  &:focus,
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.black};
+    outline: 2px solid ${({ theme }) => theme.colors.black};
+  }
+`;
+
+export const Label = styled.label`
+  position: relative;
+`
+
+export const StyledError = styled.span`
+  position: absolute;
+  left: 0;
+  top: 100%;
+  padding-top: ${({ theme }) => theme.space[2]}px;
+  padding-bottom: ${({ theme }) => theme.space[2]}px;
+  padding-left: ${({ theme }) => theme.space[3]}px;
+  padding-right: ${({ theme }) => theme.space[3]}px;
+  border-radius: ${({ theme }) => theme.radii.normal};
+  background-color: ${({ theme }) => theme.colors.red};
+  color: ${({ theme }) => theme.colors.white};
+  transition: ${({ theme }) => theme.animation.cubicBezier};
 `;

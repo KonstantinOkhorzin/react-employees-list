@@ -1,51 +1,44 @@
-import { Component } from 'react';
+import { Formik, ErrorMessage } from 'formik';
+import { object, string, number } from 'yup';
 
-import Input from '../UI/Input';
 import Button from '../UI/Button';
-import { Footer, Title, Form } from './EmployeesAddForm.styled';
+import { Footer, Title, Input, StyledForm, Label, StyledError } from './EmployeesAddForm.styled';
 
-const INITIAL_STATE = {
+const schema = object({
+  name: string().min(3).required(),
+  salary: number().required().positive().integer(),
+});
+
+const initialValues = {
   name: '',
   salary: '',
 };
 
-class EmployeesAddForm extends Component {
-  state = { ...INITIAL_STATE };
-
-  onInputChange = e => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+const EmployeesAddForm = ({ onCreateEmployee }) => {
+  
+  const onFormSubmit = (values, { resetForm }) => {
+    onCreateEmployee(values);
+    resetForm();
   };
 
-  onFormSubmit = e => {
-    e.preventDefault();
-    this.props.onCreateEmployee(this.state);
-    this.resetState();
-  };
-
-  resetState = () => {
-    this.setState({ ...INITIAL_STATE });
-  };
-
-  render() {
-    const { name, salary } = this.state;
-    return (
-      <Footer>
-        <Title>Add new employee</Title>
-        <Form onSubmit={this.onFormSubmit}>
-          <Input placeholder='What is his/her name?' name='name' value={name} onChange={this.onInputChange} />
-          <Input
-            type='number'
-            placeholder='Salary in $?'
-            name='salary'
-            value={salary}
-            onChange={this.onInputChange}
-          />
+  return (
+    <Footer>
+      <Title>Add new employee</Title>
+      <Formik initialValues={initialValues} onSubmit={onFormSubmit} validationSchema={schema}>
+        <StyledForm>
+          <Label>
+            <Input placeholder='What is his/her name?' name='name' />
+            <ErrorMessage name='name' component={StyledError} />
+          </Label>
+          <Label>
+            <Input type='number' placeholder='Salary in $?' name='salary' />
+            <ErrorMessage name='salary' component={StyledError} />
+          </Label>
           <Button type='submit'>Add</Button>
-        </Form>
-      </Footer>
-    );
-  }
-}
+        </StyledForm>
+      </Formik>
+    </Footer>
+  );
+};
 
 export default EmployeesAddForm;
