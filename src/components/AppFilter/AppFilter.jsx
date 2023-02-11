@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { Buttons, Button, Input } from './AppFilter.styled';
 
 const AppFilter = ({ filter, onInputChange }) => {
@@ -23,6 +25,11 @@ const AppFilter = ({ filter, onInputChange }) => {
       ))}
     </Buttons>
   );
+};
+
+AppFilter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default AppFilter;

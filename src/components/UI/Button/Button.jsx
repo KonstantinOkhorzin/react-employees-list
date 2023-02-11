@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const StyledButton = styled.button`
   display: inline-flex;
@@ -32,6 +33,13 @@ const Button = ({ type = 'button', disabled = false, icon: Icon = null, children
       {children}
     </StyledButton>
   );
+};
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  type: PropTypes.string,
+  disabled: PropTypes.bool,
+  icon: PropTypes.node,
 };
 
 export default Button;

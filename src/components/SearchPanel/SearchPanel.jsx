@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import AppFilter from '../AppFilter';
 import Input from '../UI/Input';
@@ -24,6 +25,11 @@ const SearchPanel = ({ filter, search, onInputChange }) => {
       <AppFilter filter={filter} onInputChange={onInputChange} />
     </StyledSearchPanel>
   );
+};
+
+SearchPanel.propTypes = {
+  search: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default SearchPanel;

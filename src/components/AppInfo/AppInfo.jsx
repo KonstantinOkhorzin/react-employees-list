@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { Header, Title, SubTitle } from './AppInfo.styled';
 
 const AppInfo = ({ employees }) => {
@@ -10,6 +12,10 @@ const AppInfo = ({ employees }) => {
       <SubTitle>Extra payment gets: {totalEmployeesForBonuses}</SubTitle>
     </Header>
   );
+};
+
+AppInfo.propTypes = {
+  employees: PropTypes.array.isRequired,
 };
 
 export default AppInfo;

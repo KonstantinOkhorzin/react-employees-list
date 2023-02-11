@@ -1,5 +1,6 @@
 import { Formik, ErrorMessage } from 'formik';
 import { object, string, number } from 'yup';
+import PropTypes from 'prop-types';
 
 import Button from '../UI/Button';
 import { Footer, Title, Input, StyledForm, Label, StyledError } from './EmployeesAddForm.styled';
@@ -39,6 +40,10 @@ const EmployeesAddForm = ({ onCreateEmployee }) => {
       </Formik>
     </Footer>
   );
+};
+
+EmployeesAddForm.propTypes = {
+  onCreateEmployee: PropTypes.func.isRequired,
 };
 
 export default EmployeesAddForm;
