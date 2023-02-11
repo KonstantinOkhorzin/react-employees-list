@@ -79,6 +79,16 @@ class App extends Component {
     }
   };
 
+  updateSalary = (e, id) => {
+    this.setState(({ data }) => ({
+      data: data.map(item =>
+        item.id === id
+          ? { ...item, salary: parseInt(e.target.value.replace(/\D/g, '')) || 0 }
+          : item
+      ),
+    }));
+  };
+
   render() {
     const { data, filter, search } = this.state;
     const visibleEmployees = this.getFilteredEmployees(this.searchEmployees(data, search), filter);
@@ -94,6 +104,7 @@ class App extends Component {
           onInputChange={this.inputChange}
           filter={filter}
           search={search}
+          onUpdateSalary={this.updateSalary}
         />
         <EmployeesAddForm onCreateEmployee={this.createEmployee} />
       </Container>

@@ -1,6 +1,6 @@
 import EmployeesListItem from '../EmployeesListItem';
 
-const EmployeesList = ({ employees, onDeleteEmployee, onToggleIncrease, onToggleRise }) => {
+const EmployeesList = ({ employees, onDeleteEmployee, onToggleIncrease, onToggleRise, onUpdateSalary }) => {
   return (
     <ul>
       {employees.map(({ id, ...restProps }) => (
@@ -10,6 +10,7 @@ const EmployeesList = ({ employees, onDeleteEmployee, onToggleIncrease, onToggle
           onDeleteEmployee={() => onDeleteEmployee(id)}
           onToggleIncrease={() => onToggleIncrease(id)}
           onToggleRise={() => onToggleRise(id)}
+          onUpdateSalary={(e) => onUpdateSalary(e, id)}
         />
       ))}
     </ul>

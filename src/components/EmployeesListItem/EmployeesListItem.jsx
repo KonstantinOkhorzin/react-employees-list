@@ -19,11 +19,12 @@ const EmployeesListItem = ({
   onDeleteEmployee,
   onToggleIncrease,
   onToggleRise,
+  onUpdateSalary,
 }) => {
   return (
     <Employee increase={increase}>
       <h3>{name}</h3>
-      <Salary defaultValue={salary + '$'} />
+      <Salary value={salary + '$'} onChange={onUpdateSalary} />
       <Buttons>
         <ButtonMoney aria-label='money' onClick={onToggleIncrease}>
           <GrMoney />
