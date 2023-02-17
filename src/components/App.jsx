@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 
 import AppInfo from './AppInfo/AppInfo';
@@ -6,110 +6,110 @@ import Main from './Main/Main';
 import EmployeesAddForm from '../components/EmployeesAddForm';
 import Container from './UI/Container';
 
-class App extends Component {
-  state = {
-    data: [],
-    filter: 'all',
-    search: '',
-  };
+const App = () => {
+  const [employees, setEmployees] = useState(
+    () => JSON.parse(window.localStorage.getItem('employees')) ?? []
+  );
+  const [filter, setFilter] = useState('all');
+  const [query, setQuery] = useState('');
 
-  componentDidMount() {
-    const employees = localStorage.getItem('employees');
-    const parsedEmployees = JSON.parse(employees);
+  useEffect(() => {
+    window.localStorage.setItem('employees', JSON.stringify(employees));
+  }, [employees]);
 
-    if (parsedEmployees) {
-      this.setState({ data: parsedEmployees });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.data !== prevState.data) {
-      localStorage.setItem('employees', JSON.stringify(this.state.data));
-    }
-  }
-
-  createEmployee = userData => {
+  const createEmployee = employeeData => {
     const newEmployee = {
-      ...userData,
+      ...employeeData,
       increase: false,
       rise: false,
       id: nanoid(),
     };
-    this.setState(({ data }) => ({
-      data: [...data, newEmployee],
-    }));
+    setEmployees(employees => [...employees, newEmployee]);
   };
 
-  deleteEmployee = id => {
-    this.setState(({ data }) => ({ data: data.filter(item => item.id !== id) }));
+  const deleteEmployee = id => {
+    setEmployees(employees => employees.filter(employee => employee.id !== id));
   };
 
-  toggleIncrease = id => {
-    this.setState(({ data }) => ({
-      data: data.map(item => (item.id === id ? { ...item, increase: !item.increase } : item)),
-    }));
+  const toggleIncrease = id => {
+    setEmployees(employees =>
+      employees.map(employee =>
+        employee.id === id ? { ...employee, increase: !employee.increase } : employee
+      )
+    );
   };
 
-  toggleRise = id => {
-    this.setState(({ data }) => ({
-      data: data.map(item => (item.id === id ? { ...item, rise: !item.rise } : item)),
-    }));
+  const toggleRise = id => {
+    setEmployees(employees =>
+      employees.map(employee =>
+        employee.id === id ? { ...employee, rise: !employee.rise } : employee
+      )
+    );
   };
 
-  inputChange = e => {
+  const inputChange = e => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
 
-  searchEmployees = (data, search) => {
-    const normalizedSearch = search.toLowerCase();
-    return data.filter(employee => employee.name.toLowerCase().includes(normalizedSearch));
-  };
+    switch (name) {
+      case 'filter':
+        setFilter(value);
+        break;
 
-  getFilteredEmployees = (data, filter) => {
-    switch (filter) {
-      case 'all':
-        return data;
-      case 'rise':
-        return data.filter(item => item.rise);
-      case 'moreThen1000':
-        return data.filter(item => item.salary > 1000);
+      case 'query':
+        setQuery(value);
+        break;
+
       default:
-        return data;
+        return;
     }
   };
 
-  updateSalary = (e, id) => {
-    this.setState(({ data }) => ({
-      data: data.map(item =>
-        item.id === id
-          ? { ...item, salary: parseInt(e.target.value.replace(/\D/g, '')) || 0 }
-          : item
-      ),
-    }));
+  const searchEmployees = (employees, query) => {
+    const normalizedSearch = query.toLowerCase();
+    return employees.filter(employee => employee.name.toLowerCase().includes(normalizedSearch));
   };
 
-  render() {
-    const { data, filter, search } = this.state;
-    const visibleEmployees = this.getFilteredEmployees(this.searchEmployees(data, search), filter);
+  const getFilteredEmployees = (employees, filter) => {
+    switch (filter) {
+      case 'all':
+        return employees;
+      case 'rise':
+        return employees.filter(item => item.rise);
+      case 'moreThen1000':
+        return employees.filter(item => item.salary > 1000);
+      default:
+        return employees;
+    }
+  };
 
-    return (
-      <Container>
-        <AppInfo employees={data} />
-        <Main
-          employees={visibleEmployees}
-          onDeleteEmployee={this.deleteEmployee}
-          onToggleIncrease={this.toggleIncrease}
-          onToggleRise={this.toggleRise}
-          onInputChange={this.inputChange}
-          filter={filter}
-          search={search}
-          onUpdateSalary={this.updateSalary}
-        />
-        <EmployeesAddForm onCreateEmployee={this.createEmployee} />
-      </Container>
+  const updateSalary = (e, id) => {
+    setEmployees(employees =>
+      employees.map(employee =>
+        employee.id === id
+          ? { ...employee, salary: parseInt(e.target.value.replace(/\D/g, '')) || 0 }
+          : employee
+      )
     );
-  }
-}
+  };
+
+  const visibleEmployees = getFilteredEmployees(searchEmployees(employees, query), filter);
+
+  return (
+    <Container>
+      <AppInfo employees={employees} />
+      <Main
+        employees={visibleEmployees}
+        onDeleteEmployee={deleteEmployee}
+        onToggleIncrease={toggleIncrease}
+        onToggleRise={toggleRise}
+        onInputChange={inputChange}
+        filter={filter}
+        search={query}
+        onUpdateSalary={updateSalary}
+      />
+      <EmployeesAddForm onCreateEmployee={createEmployee} />
+    </Container>
+  );
+};
 
 export default App;

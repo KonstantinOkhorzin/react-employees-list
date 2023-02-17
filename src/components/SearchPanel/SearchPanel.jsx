@@ -18,17 +18,17 @@ const StyledSearchPanel = styled.div`
   }
 `;
 
-const SearchPanel = ({ filter, search, onInputChange }) => {
+const SearchPanel = ({ filter, query, onInputChange }) => {
   return (
     <StyledSearchPanel>
-      <Input placeholder={'Find employee'} name='search' value={search}  onChange={onInputChange} />
+      <Input placeholder={'Find employee'} name='query' value={query}  onChange={onInputChange} />
       <AppFilter filter={filter} onInputChange={onInputChange} />
     </StyledSearchPanel>
   );
 };
 
 SearchPanel.propTypes = {
-  search: PropTypes.string.isRequired,
+  query: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
 };
 

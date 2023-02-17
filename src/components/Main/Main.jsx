@@ -10,10 +10,10 @@ const StyledMain = styled.main`
   gap: ${({ theme }) => theme.space[4]}px;
 `;
 
-const Main = ({ filter, search, onInputChange, ...restProps }) => {
+const Main = ({ filter, query, onInputChange, ...restProps }) => {
   return (
     <StyledMain>
-      <SearchPanel filter={filter} search={search} onInputChange={onInputChange} />
+      <SearchPanel filter={filter} query={query} onInputChange={onInputChange} />
       <EmployeesList {...restProps} />
     </StyledMain>
   );
