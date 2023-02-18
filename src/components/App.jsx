@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
 import AppInfo from './AppInfo/AppInfo';
@@ -6,16 +6,12 @@ import Main from './Main/Main';
 import EmployeesAddForm from '../components/EmployeesAddForm';
 import Container from './UI/Container';
 
+import useLocalStorage from '../hooks/useLocalStorage';
+
 const App = () => {
-  const [employees, setEmployees] = useState(
-    () => JSON.parse(window.localStorage.getItem('employees')) ?? []
-  );
+  const [employees, setEmployees] = useLocalStorage('employees', []);
   const [filter, setFilter] = useState('all');
   const [query, setQuery] = useState('');
-
-  useEffect(() => {
-    window.localStorage.setItem('employees', JSON.stringify(employees));
-  }, [employees]);
 
   const createEmployee = employeeData => {
     const newEmployee = {
@@ -104,7 +100,7 @@ const App = () => {
         onToggleRise={toggleRise}
         onInputChange={inputChange}
         filter={filter}
-        search={query}
+        query={query}
         onUpdateSalary={updateSalary}
       />
       <EmployeesAddForm onCreateEmployee={createEmployee} />
