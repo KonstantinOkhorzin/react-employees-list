@@ -22,7 +22,7 @@ export const GlobalStyleComponent = createGlobalStyle`
   }
   
   body {
-  min-height: 100%;
+  height: 100%;
   background-color: ${p => p.theme.colors.white};
   color: ${p => p.theme.colors.text};
   font-family: ${p => p.theme.fonts.body};
