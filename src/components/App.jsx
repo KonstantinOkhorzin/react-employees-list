@@ -78,11 +78,11 @@ const App = () => {
     }
   };
 
-  const updateSalary = (e, id) => {
+  const updateSalary = (value, id) => {
     setEmployees(employees =>
       employees.map(employee =>
         employee.id === id
-          ? { ...employee, salary: parseInt(e.target.value.replace(/\D/g, '')) || 0 }
+          ? { ...employee, salary: parseInt(value.replace(/\D/g, '')) || 0 }
           : employee
       )
     );

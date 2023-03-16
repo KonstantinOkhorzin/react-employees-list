@@ -18,7 +18,7 @@ const EmployeesList = ({
           onDeleteEmployee={() => onDeleteEmployee(id)}
           onToggleIncrease={() => onToggleIncrease(id)}
           onToggleRise={() => onToggleRise(id)}
-          onUpdateSalary={e => onUpdateSalary(e, id)}
+          onUpdateSalary={e => onUpdateSalary(e.target.value, id)}
         />
       ))}
     </ul>
