@@ -3,7 +3,8 @@ import { nanoid } from 'nanoid';
 
 import AppInfo from './AppInfo/AppInfo';
 import Main from './Main/Main';
-import EmployeesAddForm from '../components/EmployeesAddForm';
+import EmployeesAddForm from './EmployeesAddForm';
+import DefaultMessage from './DefaultMessage';
 import Container from './UI/Container';
 
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -93,16 +94,20 @@ const App = () => {
   return (
     <Container>
       <AppInfo employees={employees} />
-      <Main
-        employees={visibleEmployees}
-        onDeleteEmployee={deleteEmployee}
-        onToggleIncrease={toggleIncrease}
-        onToggleRise={toggleRise}
-        onInputChange={inputChange}
-        filter={filter}
-        query={query}
-        onUpdateSalary={updateSalary}
-      />
+      {employees.length < 1 ? (
+        <DefaultMessage message={'The list is empty! Add employees!'} />
+      ) : (
+        <Main
+          employees={visibleEmployees}
+          onDeleteEmployee={deleteEmployee}
+          onToggleIncrease={toggleIncrease}
+          onToggleRise={toggleRise}
+          onInputChange={inputChange}
+          filter={filter}
+          query={query}
+          onUpdateSalary={updateSalary}
+        />
+      )}
       <EmployeesAddForm onCreateEmployee={createEmployee} />
     </Container>
   );
