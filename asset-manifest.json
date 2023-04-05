@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/react-employees-list/static/js/main.6fd38afe.js",
+    "index.html": "/react-employees-list/index.html",
+    "main.6fd38afe.js.map": "/react-employees-list/static/js/main.6fd38afe.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.6fd38afe.js"
+  ]
+}
